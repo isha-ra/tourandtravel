@@ -266,3 +266,31 @@ class AdminRequiredMixin(object):
 
 class AdminHomeView(AdminRequiredMixin, TemplateView):
     template_name = "admintemplate/adminhome.html"
+
+    # forservice start
+
+class AdminServiceListView(AdminRequiredMixin, ListView):
+    template_name = "admintemplate/adminservicelist.html"
+    queryset = Service.objects.all().order_by('-id')
+    context_object_name = "adminservicelist"
+
+class AdminServiceCreateView(AdminRequiredMixin, CreateView):
+    template_name = "admintemplate/adminservicecreate.html"
+    form_class = ServiceForm
+    success_url = reverse_lazy('tourandtravelapp:adminservicelist')
+
+
+class AdminServiceUpdateView(AdminRequiredMixin, UpdateView):
+    template_name = "admintemplate/adminservicecreate.html"
+    form_class = ServiceForm
+    model = Service
+    success_url = reverse_lazy('tourandtravelapp:adminservicelist')
+
+
+class AdminServiceDeleteView(AdminRequiredMixin, DeleteView):
+    template_name = "admintemplate/adminservicedelete.html"
+    model = Service
+    success_url = reverse_lazy('tourandtravelapp:adminservicelist')
+
+
+    # forservice end

@@ -30,6 +30,14 @@ urlpatterns = [
 	path('signin/', SigninView.as_view(), name='signin'),
     path('signout/', SignoutView.as_view(), name='signout'),
     path('med-admin/home', AdminHomeView.as_view(), name='adminhome'),
+    path('med-admin/service/list/',
+    	AdminServiceListView.as_view(), name="adminservicelist"),
+	path('med-admin/service/create/',
+         AdminServiceCreateView.as_view(), name="adminservicecreate"),
+	path('med-admin/<int:pk>/edit/',
+         AdminServiceUpdateView.as_view(), name="adminserviceupdate"),
+    path('med-admin/<int:pk>/delete/',
+         AdminServiceDeleteView.as_view(), name="adminservicedelete"),
 
 
 	]
