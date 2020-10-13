@@ -221,3 +221,48 @@ class AlbumView(BaseMixin, TemplateView):
         context['allvidoes'] = Video.objects.all()
 
         return context
+
+
+
+
+
+        # for admin
+
+class SigninView(FormView):
+    template_name = "admintemplate/adminlogin.html"
+    form_class = SigninForm
+    success_url = reverse_lazy('tourandtravelapp:adminhome')
+
+    def form_valid(self, form):
+        uname = form.cleaned_data["username"]
+        pword = form.cleaned_data["password"]
+        user = authenticate(username=uname, password=pword)
+        if user is not None:
+            login(self.request, user)
+        else:
+            return render(self.request, "admintemplate/adminlogin.html",
+                          {"error": "Invalid Username or Password",
+                           "form": form
+                           })
+
+        return super().form_valid(form)
+
+class SignoutView(View):
+
+    def get(self, request):
+        logout(request)
+        return redirect("/signin/")
+
+        
+
+class AdminRequiredMixin(object):
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            pass
+        else:
+            return redirect("/signin/")
+
+        return super().dispatch(request, *args, **kwargs)
+
+class AdminHomeView(AdminRequiredMixin, TemplateView):
+    template_name = "admintemplate/adminhome.html"

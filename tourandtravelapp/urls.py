@@ -26,4 +26,10 @@ urlpatterns = [
 	path('service/<slug:slug>/detail/',
          ServiceDetailView.as_view(), name="servicedetail"),
 
+	# foradmin
+	path('signin/', SigninView.as_view(), name='signin'),
+    path('signout/', SignoutView.as_view(), name='signout'),
+    path('med-admin/home', AdminHomeView.as_view(), name='adminhome'),
+
+
 	]
