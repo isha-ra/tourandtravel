@@ -1,0 +1,109 @@
+{% extends "clienttemplate/base.html" %}
+
+{% load static %}
+{% block package %} active{% endblock %}
+{% block content %}
+
+<!-- banner -->
+<section class="banner_inner" id="home">
+	<div class="banner_inner_overlay">
+	</div>
+</section>
+<!-- //banner -->
+
+
+<!-- tour packages -->
+<section class="packages pt-5">
+	<div class="container row">
+		<div class="col-md-9">
+			
+			<div class="container-fluid" >
+				<h2>Package Detail</h2>
+				<h3>Title: <small>{{packageobject.title}}</small></h3><br/>
+				{% if packageobject.image %}
+				<img src="{{packageobject.image.url}}" width="500">
+				{% else %}
+				<h4>no image</h4>
+				{% endif %}
+				<p><b></b>{{packageobject.details|safe}}</p><br/>
+				
+			    <p><b>Rate:</b>Rs.{{packageobject.rate}}</p><br/>
+			     <button type="button" class="btn btn-outline-primary"><a href="{% url 'tourandtravelapp:clientpackagebook' packageobject.id %}">Book Now</a></button>
+			   <button type="button" class="btn btn-outline-primary"><a href="{% url 'tourandtravelapp:enquery' %}">Enquery</a></button>
+			
+			</div>
+			<hr>
+				<div class="comments my-5">
+								<h3 class="blog-title text-dark">Our Recent Comments</h3>
+								<div class="comments-grids mt-4">
+									{% for comment in packageobject.comment_set.all %}
+									<div class="row comments-grid">
+										<div class="col-3 comments-grid-left">
+											<img src="{% static 'clientstatic/images/te1.jpg' %}" alt=" " class="img-thumbnail" />
+										</div>
+										<div class="col-8 comments-grid-right mt-3">
+											<h4>{{comment.name}}</h4>
+											<ul class="my-2">
+												<li class="font-weight-bold">{{comment.email}}
+													<i>|</i>
+												</li>
+												<li>
+													<a href="#" class="font-weight-bold">Reply</a>
+												</li>
+											</ul>
+											<p>{{comment.comment}}</p>
+										</div>
+									</div>
+									{% endfor %}
+								</div>
+							</div>
+							<div class="col-lg-7 contact-left-form">
+								<h3 class="blog-title text-dark mb-4">Leave a Reply</h3>
+								<form method="post" action="{% url 'tourandtravelapp:packagecomment' packageobject.pk %}" class="row">
+									{% csrf_token %}
+									{{form.as_p}}
+									<!-- <div class="col-sm-6 form-group contact-forms">
+									{{form.name}}
+								</div>
+								<div class="col-sm-6 form-group contact-forms">
+									{{form.email}}
+								</div>
+								<div class="col-sm-6 form-group contact-forms">
+									{{form.comment}}
+								</div> -->
+									<button class="btn btn-info">Comment</button>
+								</form>
+							</div>
+				<div class="container-fluid">
+				<h3>You may also be like</h3><hr>
+				<div class="row">
+					{% for package in packageobject.service.servicepackage_set.all %}
+						{% if package != packageobject %}
+						<div class="card" style="width: 18rem;">
+						  <img class="card-img-top" src="{{package.image.url}}" alt="Card image cap">
+						  <div class="card-body">
+						    <h5 class="card-title">{{package.title}}</h5>
+						    <p class="card-text">{{package.details|truncatechars:"20" }}</p>
+						    <a href="{% url 'tourandtravelapp:packagedetail' package.id %}" class="btn btn-primary">View More</a>
+
+						  </div>
+						</div>
+						{% endif %}
+						<!-- {% if packageobject.service.servicepackage_set.count <= 1 %}
+							<h4>No results found</h4>
+						{% endif %} -->
+					{% endfor %}
+				</div>
+			</div>
+			<div class="col-md-3">
+			<h3>Offer including this package</h3><hr>
+			{% for offer in packageobject.offer_set.all %}
+				<li><a href="{% url 'tourandtravelapp:offerdetail' offer.pk %}">{{offer.title}}</a></li>
+				<img src="{{offer.image.url}}" width="200">
+			{% endfor %}
+		</div>
+	</div>
+</section>
+
+
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends "clienttemplate/base.html" %}
+
+{% load static %}
+{% block service %} active{% endblock %}
+{% block content %}
+
+<!-- banner -->
+<section class="banner_inner" id="home">
+	<div class="banner_inner_overlay">
+	</div>
+</section>
+<!-- //banner -->
+<div class="breadcrumb-w3pvt">
+		<ol class="breadcrumb mb-0 text-center">
+			<li class="breadcrumb-item">
+				<a href="{% url 'tourandtravelapp:home' %}">Home</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Service</li>
+		</ol>
+	</div>
+
+<!-- services -->
+<section class="services pt-5">
+	<div class="container py-lg-5 py-sm-3">
+		<h2 class="heading text-capitalize text-center mb-lg-5 mb-4"> Our Services</h2>
+		<div class="row">
+			<div class="col-lg-3 main-title-text">
+				<h4 class="my-lg-4 mb-4">The journey of a thousand miles begins with a single step.</h4>
+				<img src="{% static 'clientstatic/imagesp1.jpg' %}" alt="" class="img-fluid" />
+			</div>
+			<div class="col-lg-9 mt-lg-0 mt-5">
+				<div class="row">
+				{% for service in allservices %}
+					<div class="col-lg-4 col-md-6 col-sm-6 service-grid-wthree text-center mb-5">
+						<div class="ser-fashion-grid">
+							<div class="about-icon mb-md-4 mb-3">
+								<span class="fa {{service.icon}}" aria-hidden="true"></span>
+							</div>
+							<div class="ser-sevice-grid">
+							  <h4 class="pb-3"><a href="{% url 'tourandtravelapp:servicedetail' service.slug %}">{{service.title}}</h4>
+							  <p>{{service.content|striptags|truncatechars:"20"}}</p>
+							</div>
+					  </div>
+					</div>
+				{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- //services -->
+
+<!-- text -->
+<section class="text-content">
+	<div class="overlay-inner py-5">
+		<div class="container py-md-3">
+			<div class="test-info">
+				<h4 class="tittle">Enjoy The Trip</h4>
+				<p class="mt-3">{{organization.mission_and_vision}}</p>
+			
+					     <a href="{% url 'tourandtravelapp:about' %}">About Us</a>
+						<a href="{% url 'tourandtravelapp:enquery' %}">Enquery</a>
+				
+			</div>
+		</div>
+	</div>
+</section>
+<!-- //text -->
+
+
+<!-- places -->
+<section class="trav-grids py-5" id="desti">
+	<div class="container py-xl-5 py-lg-3">
+		<h3 class="heading text-capitalize text-center mb-lg-5 mb-4">Our Team</h3>
+		<div class="row">
+				{% for team in allteam %}
+			<div class="col-lg-6 mt-4">
+				<div class="grids-tem-one">
+					<div class="row">
+						<div class="col-sm-5 grids-img-left">
+							<img src="{{team.image.url}}" alt="" class="img-fluid" >
+						</div>
+						<div class="col-sm-7 right-cont">
+							<h4 class="mb-2 let mt-sm-0 mt-2 tm-clr">{{team.name}}</h4>
+							<p class="mt-3"><strong>Post</strong> :{{team.post}}</p>
+							<p class="mt-3"><strong>Mobile</strong> :{{team.mobile}}</p>
+							<p class="mt-3"><strong>Email</strong> :{{team.email}}</p>
+							<p class="mt-3"><strong>Detail</strong> :{{team.detail}}</p>
+							<p class="duration mt-2"><span class="fa fa-clock-o mr-2"></span><strong>Experience</strong> : {{team.experience}}</p>
+						</div>
+					</div>
+				</div>
+			</div>	
+				{% endfor %}
+		</div>
+	</div>
+</section>
+<!-- //places -->
+
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends "clienttemplate/base.html" %}
+
+{% load static %}
+{% block package %} active{% endblock %}
+{% block content %}
+
+<!-- banner -->
+<section class="banner_inner" id="home">
+	<div class="banner_inner_overlay">
+	</div>
+</section>
+<!-- //banner -->
+<div class="breadcrumb-w3pvt">
+		<ol class="breadcrumb mb-0 text-center">
+			<li class="breadcrumb-item">
+				<a href="{% url 'tourandtravelapp:home' %}">Home</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Package</li>
+		</ol>
+	</div>
+<!-- tour packages -->
+<section class="packages pt-5">
+	<div class="container py-lg-4 py-sm-3">
+		<h2 class="heading text-capitalize text-center"> Discover our tour packages</h2>
+		<p class="text mt-2 mb-5 text-center">Enjoy your holidays at the best prices.</p>
+		<div class="row">
+			
+				{% for package in allpackages %}
+			<div class="col-lg-3 col-sm-6">
+				<div class="image-tour position-relative">
+					<img src="{{package.image.url}}" alt="" class="img-fluid" />
+					<p><span class="fa fa-tags"></span> <span>Rs. {{package.rate}}</span></p>
+				</div>
+				<div class="package-info">
+					<h5 class="mt-2"><span class="fa fa-map-marker mr-2"></span>{{package.title}}</h5>
+					<!-- <h5 class="my-2">{{package.title}}</h5> -->
+					<p class="">{{package.details|striptags|truncatechars:"30"}}</p>
+					<ul class="listing mt-3">
+						<li><span class="fa fa-clock-o mr-2"></span>Duration : <span>{{package.duration}}- Days</span></li>
+					</ul>
+				</div>
+			</div>
+				{% endfor %}
+		</div>
+	</div>
+</section>
+<!-- tour packages -->
+
+
+
+
+
+<!-- Special offres -->
+<section class="destinations py-5" id="destinations">
+	<div class="container py-xl-5 py-lg-3">
+		<h3 class="heading text-capitalize text-center"> Popular Offers</h3>
+		<p class="text mt-2 mb-5 text-center">Some of our season best offers.</p>
+		<div class="row inner-sec-w3layouts-w3pvt-lauinfo">
+		{% for offer in alloffers %}
+			<div class="col-md-3 col-sm-6 col-6 destinations-grids text-center">
+				<h4 class="destination mb-3">{{offer.title}}</h4>
+				<div class="image-position position-relative">
+					<img src="{{offer.image.url}}" class="img-fluid" alt="">
+					<h4 class="destination mb-3">{{offer.details}}</h4>
+					<div class="rating">
+						<ul>
+							{% if offer.offer_ends < today %} 
+
+							<li><span class="fa fa-star">Expired</span></li>
+
+				           {% else %} 
+							<li><span class="fa fa-star">Available</span></li>
+						{% endif %}
+						</ul>
+					</div>
+				</div>
+				<div class="destinations-info">
+					
+			    {% if offer.offer_ends < today %} 
+	            <div class="destinations-info">
+					<div class="caption mb-lg-3">
+						<h4>Rs.{{offer.cost}}</h4>
+						<h4>{{offer.offer_starts}} TO {{offer.offer_ends}}</h4>
+						<a href="">Expired</a>
+					 </div>
+				</div>
+
+				{% else %} 
+					<div class="destinations-info">
+					 <div class="caption mb-lg-3">
+						<h4>Rs.{{offer.cost}}</h4>
+						<h4>{{offer.offer_starts}} TO {{offer.offer_ends}}</h4>
+						<a href="{% url 'tourandtravelapp:offerdetail' offer.pk %}">Available View Detail</a>
+					 </div>
+				     </div>
+						{% endif %}
+						</div>
+                     </div>
+					{% endfor %}
+					</div>
+					
+			</div>
+		</div>
+	</div>
+</section>
+<!-- Special offres -->
+
+
+{% endblock %}

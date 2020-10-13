@@ -1,0 +1,119 @@
+{% extends "clienttemplate/base.html" %}
+
+{% load static %}
+{% block album %} active{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+
+{% endblock %}
+{% block content %} 
+<section class="banner_inner" id="home">
+    <div class="banner_inner_overlay">
+    </div>
+</section>
+<div class="breadcrumb-w3pvt">
+        <ol class="breadcrumb mb-0 text-center">
+            <li class="breadcrumb-item">
+                <a href="{% url 'tourandtravelapp:home' %}">Home</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Album</li>
+        </ol>
+    </div>
+<section class="packages pt-5">
+    <div class="container py-lg-4 py-sm-3">
+        <h2 class="heading text-capitalize text-center"> Our Album</h2>
+        <div class="row">
+            
+                {% for album in allalbum %}
+            <div class="col-lg-3 col-sm-6 mb-5" style="min-height: 500px;">
+                <div class="image-tour position-relative" style="min-height: 500">
+                    <img src="" alt="" class="img-fluid" style="height: 500px; object-fit: cover;">
+                    <!-- <p><span class="fa fa-tags"></span> <span>{{album.title}}</span></p> -->
+                </div>
+                <div class="package-info" style="min-height: 500px;">
+                    <!-- <h6 class="mt-1"><span class="fa fa-map-marker mr-2"></span>Nepal</h6> -->
+                    <h5 class="my-2"><a href="">{{album.title}}</a></h5>
+                    <p class="">{{ablum.details|striptags|truncatechars:"30"}}</p>
+                    <ul class="listing mt-3">
+                    </ul>
+                    <div class="row">
+                    
+                    {% for image in album.image_set.all %}
+                    <div class="col-md-6">
+                        <a href="{{image.image.url}}" data-toggle="lightbox">
+                            
+                             <img src="{{image.image.url}}" class="img-fluid">
+                        </a>
+                    </div> 
+                    <!-- <div class="popup">
+                        <a href="{{image.image.url}}" data-toggle="lightbox">
+                            
+                             <img src="{{image.image.url}}" class="img-fluid">
+                        </a>
+                    </div> -->
+                   
+<!--End image popup-->
+                    {% endfor %}
+                </div>
+                </div>
+                
+            </div>
+                {% endfor %}
+        </div>
+    </div>
+    <div class="container py-lg-5 py-md-3">
+      <div class="container">
+        <h3 class="heading text-capitalize text-center mb-lg-5 mb-3">Videos</h3>
+         <div class="row">
+           {% for video in allvidoes %}
+            <div class="col-md-6 ">
+              <div class="card">
+                <div class="card-image">
+                  <div class="embed-responsive embed-responsive-16by9">
+                    <iframe width="400" height="300" src="https://www.youtube.com/embed/{{video.link}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  </div>
+                </div>
+               <div class="card-content">
+                 <span class="card-title">{{video.title}}</span>
+               </div>
+                <h3 class="card-text" style = "font-style: italic";>{{video.description}}</h3>
+               </div>
+            </div>
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+</section>
+
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js
+
+"></script>
+<script type="text/javascript">
+    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+</script>
+<!-- <script type="text/javascript">
+$(function () {
+    "use strict";
+    
+    $(".popup img").click(function () {
+        var $src = $(this).attr("src");
+        $(".show").fadeIn();
+        $(".img-show img").attr("src", $src);
+    });
+    
+    $("span, .overlay").click(function () {
+        $(".show").fadeOut();
+    });
+    
+});
+</script> -->
+
+{% endblock %}

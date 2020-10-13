@@ -1,0 +1,82 @@
+{% extends "clienttemplate/base.html" %}
+
+{% load static %}
+{% block package %} active{% endblock %}
+{% block content %}
+
+<!-- banner -->
+<section class="banner_inner" id="home">
+	<div class="banner_inner_overlay">
+	</div>
+</section>
+<!-- //banner -->
+
+
+<!-- tour offers -->
+<section class="offers pt-5">
+	<div class="container row">
+		<div class="col-md-9">
+			
+			<div class="container-fluid "  >
+				<h2>Offer Detail </h2>
+				<h3>Title: <small>{{offerobject.title}}</small></h3><br/>
+				<h5>Starts: <small>{{offerobject.offer_starts}}</small></h5><br/>
+				<h5>Ends: <small>{{offerobject.offer_ends}}</small></h5><br/>
+				{% if offerobject.image %}
+				<img src="{{offerobject.image.url}}" width="500">
+				{% else %}
+				<h4>no image</h4>
+				{% endif %}
+				<p><b>Content:</b>{{offerobject.details}}</p><br/>
+			</div>
+			<div class="container-fluid">
+				<h3>You may also like</h3><hr>
+				<div class="row">
+					{% for package in offerobject.packages.all %}
+					{% for offer in package.offer_set.all %}
+						{% if offer != offerobject %}
+						<div class="card" style="width: 18rem;">
+						  <img class="card-img-top" src="{{offer.image.url}}" alt="Card image cap">
+						  <div class="rating">
+						<ul>
+							{% if offer.offer_ends < today %} 
+
+							<li><span class="fa fa-star">Expired</span></li>
+
+				           {% else %} 
+							<li><span class="fa fa-star">Available</span></li>
+						{% endif %}
+						</ul>
+					</div>
+						  <div class="card-body">
+						    <h5 class="card-title">{{offer.title}}</h5>
+						    <p class="card-text">{{offer.details|truncatechars:"20" }}</p>
+							{% if offer.offer_ends < today %} 
+						    <a href="#" class="btn btn-disable">Expired</a>
+						    {% else %}
+						    <a href="{% url 'tourandtravelapp:offerdetail' offer.id %}" class="btn btn-primary">View More</a>
+						    {% endif %}
+						  </div>
+						</div>
+						{% endif %}
+						{% if package.offer_set.count <= 1 %}
+							<h4>No results found</h4>
+						{% endif %}
+						{% endfor %}
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<h3>Some more Packages</h3>
+			{% for package in allpackages %}
+				<li><a href="{% url 'tourandtravelapp:packagedetail'  package.id %}">{{package.title}}</a></li>
+				<img src="{{package.image.url}}" width="200">
+			{% endfor %}
+		</div>
+	</div>
+</section>
+<!-- tour offers -->
+
+
+{% endblock %}

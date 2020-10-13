@@ -1,0 +1,42 @@
+{% extends "clienttemplate/base.html" %}
+
+
+{% block content %}
+<!-- banner -->
+<section class="banner_inner" id="home">
+	<div class="banner_inner_overlay">
+	</div>
+</section>
+<!-- //banner -->
+
+
+<!-- tour services -->
+<section class="services pt-5">
+	<div class="container row">
+		<div class="col-md-9">
+			
+			<div class="container-fluid " >
+				<h2>Service Detail </h2>
+				<span class="fa {{service.icon}}" aria-hidden="true"></span>
+				<h3>Title: <small>{{serviceobject.title}}</small></h3><br/>
+				{% if serviceobject.images %}
+				<img src="{{serviceobject.images.url}}" width="500">
+				{% else %}
+				<h4>no image</h4>
+				{% endif %}
+				<p><b>Content:</b>{{serviceobject.content|safe}}</p><br/>
+			</div>
+			<button type="button" class="btn btn-outline-primary"><a href="{% url 'tourandtravelapp:enquery' %}">Enquery</a></button><hr>
+		</div>
+		<div class="col-md-3">
+			<h3>Some of our famous packages</h3>
+				{% for package in allpackages|slice:"3" %}
+				<li><a href="{% url 'tourandtravelapp:packagedetail'  package.id %}">{{package.title}}</a></li>
+				<img src="{{package.image.url}}" width="200">
+			{% endfor %}
+
+		</div>
+
+	</div>
+</section>
+{% endblock %}
