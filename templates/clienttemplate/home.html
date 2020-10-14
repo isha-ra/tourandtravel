@@ -58,7 +58,7 @@
 				
 			</div>
 			<div class="col-lg-6 about-right text-lg-right mt-lg-0 mt-5">
-				<img src="{{organization.profile_image.url}}" alt="" class="img-fluid abt-image" />
+				<img src="{{organization.profile_image.url}}" alt="" class="img-fluid abt-image" / ">
 			</div>
 		</div>
 	<!-- 	<div class="row mt-5 text-center">
@@ -141,7 +141,7 @@
 			{% for package in allpackages%}
 			<div class="col-lg-3 col-sm-6">
 				<div class="image-tour position-relative">
-					<img src="{{package.image.url}}" alt="" class="img-fluid" />
+					<img src="{{package.image.url}}" alt="" style="height: 250px;width: 250px" class="img-fluid"   />
 					<p><span class="fa fa-tags"></span> <span>Rs. {{package.rate}}</span></p>
 				</div>
 				<div class="package-info">
@@ -173,7 +173,7 @@
 			<div class="col-md-3 col-sm-6 col-6 destinations-grids text-center">
 				<h4 class="destination mb-3">{{offer.title}}</h4>
 				<div class="image-position position-relative">
-					<img src="{{offer.image.url}}" class="img-fluid" alt="">
+					<img src="{{offer.image.url}}" style="height: 250px;width: 250px" class="img-fluid" alt="">
 					<h4 class="destination mb-3">{{offer.details}}</h4>
 					<div class="rating">
 						<ul>
@@ -248,7 +248,7 @@
 			<div class="col-md-3 col-sm-6 col-6 destinations-grids text-center">
 				<h4 class="destination mb-3">{{destination.title}}</h4>
 				<div class="image-position position-relative">
-					<img src="{{destination.images.url}}" class="img-fluid" alt="">
+					<img src="{{destination.images.url}}" style="height: 250px;width: 250px" class="img-fluid" alt="">
 					<div class="rating">
 						<ul>
 							<li><span class="fa fa-star"></span></li>

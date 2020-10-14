@@ -232,3 +232,110 @@ class SubscriberForm(forms.ModelForm):
                 'placeholder': 'Enter email...'
             }),
         }
+
+class TeamForm(forms.ModelForm):
+    class Meta:
+        model = Team
+        fields = "__all__"
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter name...'
+            }),
+            'post': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter post...'
+            }),
+            'image': forms.ClearableFileInput(attrs={
+                'class': 'form-control'
+            }),
+            'mobile': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter mobile...'
+            }),
+            'email': forms.EmailInput(attrs={
+                "class": 'form-control',
+                'placeholder': 'Enter email'
+            }),
+            'detail': forms.Textarea(attrs={
+                "class": 'form-control',
+                'placeholder': 'Enter detail'
+            }),
+        }
+
+class TestimonialForm(forms.ModelForm):
+    class Meta:
+        model = Testimonial
+        fields = "__all__"
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter name...'
+            }),
+            'photo': forms.ClearableFileInput(attrs={
+                'class': 'form-control',
+            }),
+            'sayings': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your words...'
+            }),
+            'profession': forms.TextInput(attrs={
+                "class": 'form-control',
+                'placeholder': 'Enter your profession...'
+            }),
+        }
+
+
+class AlbumForm(forms.ModelForm):
+    images = forms.FileField(widget=forms.FileInput(attrs={
+        'multiple': True
+    }))
+
+    class Meta:
+        model = Album
+        fields = "__all__"
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter name...'
+            }),
+            'details': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your words...'
+            }),
+        }
+
+class ImageForm(forms.ModelForm):
+    class Meta:
+        model = Image
+        fields = "__all__"
+        widgets = {
+            'album': forms.Select(attrs={
+                'class': 'form-control',
+            }),
+            'image': forms.ClearableFileInput(attrs={
+                'class': 'form-control',
+            }),
+            'caption': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your words...'
+            }),
+        }
+class VideoForm(forms.ModelForm):
+    class Meta:
+        model = Video
+        fields = "__all__"
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your title...'
+            }),
+            'link': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter video link...'
+            }),
+            'description': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your words...'
+            }),
+        }

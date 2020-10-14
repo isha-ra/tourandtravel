@@ -1,0 +1,51 @@
+{% extends 'admintemplate/adminbase.html' %}
+
+{% block content %}
+<!-- <h2 class="main-title-w3layouts mb-2 text-center">Tables</h2> -->
+            <!--// main-heading -->
+
+            <!-- Tables content -->
+                <!-- <div class="row">
+                	<div class="col-md-10">
+                		
+		                
+                	</div> -->
+                	<div class="col-md-2">
+                		<a href="{% url 'tourandtravelapp:adminalbumcreate' %}"  style="font-size: 40px"><span class="fas fa-plus-circle text-primary"></span></a>
+                	</div>
+               <!--  </div> -->
+            <section class="tables-section">
+                
+                <!-- table5 -->
+                <div class="outer-w3-agile mt-3">
+                    <h4 class="tittle-w3-agileits mb-4">All Album</h4>
+
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">S.N</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Details</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        	{% for album in adminalbumlist %}
+                            <tr>
+                                <th scope="row">{{forloop.counter}}</th>
+                                <td>{{album.title}}</td>
+                                <td>{{album.details}}</td>
+                                <td>
+                                	<a href="{% url 'tourandtravelapp:adminalbumupdate' album.id %}" class="btn btn-info"><i class="fas fa-edit"></i></a>
+                                	<a href="{% url 'tourandtravelapp:adminalbumdelete' album.id %}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <!--// table5 -->
+
+            </section>
+
+{% endblock %}

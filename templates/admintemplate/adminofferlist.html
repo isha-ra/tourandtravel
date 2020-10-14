@@ -1,0 +1,53 @@
+{% extends 'admintemplate/adminbase.html' %}
+
+{% block content %}
+<!-- <h2 class="main-title-w3layouts mb-2 text-center">Tables</h2> -->
+            <!--// main-heading -->
+
+            <!-- Tables content -->
+                <!-- <div class="row">
+                	<div class="col-md-10">
+                		
+		                
+                	</div> -->
+                	<div class="col-md-2">
+                		<a href="{% url 'tourandtravelapp:adminoffercreate' %}"  style="font-size: 40px"><span class="fas fa-plus-circle text-primary"></span></a>
+                	</div>
+               <!--  </div> -->
+            <section class="tables-section">
+                
+                <!-- table5 -->
+                <div class="outer-w3-agile mt-3">
+                    <h4 class="tittle-w3-agileits mb-4">All Offer</h4>
+
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">S.N</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Created at</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        	{% for offer in adminofferlist %}
+                            <tr>
+                                <th scope="row">{{forloop.counter}}</th>
+                                <td>{{offer.title}}</td>
+                                <td><img src="{{offer.image.url}}" width="70"></td>
+                                <td>{{offer.created_at}}</td>
+                                <td>
+                                	<a href="{% url 'tourandtravelapp:adminofferupdate' offer.id %}" class="btn btn-info"><i class="fas fa-edit"></i></a>
+                                	<a href="{% url 'tourandtravelapp:adminofferdelete' offer.id %}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <!--// table5 -->
+
+            </section>
+
+{% endblock %}

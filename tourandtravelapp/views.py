@@ -293,4 +293,308 @@ class AdminServiceDeleteView(AdminRequiredMixin, DeleteView):
     success_url = reverse_lazy('tourandtravelapp:adminservicelist')
 
 
-    # forservice end
+# forservice end
+
+# service package start
+class AdminServicePackageListView(AdminRequiredMixin, ListView):
+    template_name = "admintemplate/adminservicepackagelist.html"
+    queryset = ServicePackage.objects.all().order_by('-id')
+    context_object_name = "adminservicepackagelist"
+
+class AdminServicePackageCreateView(AdminRequiredMixin, CreateView):
+    template_name = "admintemplate/adminservicepackagecreate.html"
+    form_class = ServicePackageForm
+    success_url = reverse_lazy('tourandtravelapp:adminservicepackagelist')
+
+
+class AdminServicePackageUpdateView(AdminRequiredMixin, UpdateView):
+    template_name = "admintemplate/adminservicepackagecreate.html"
+    form_class = ServicePackageForm
+    model = ServicePackage
+    success_url = reverse_lazy('tourandtravelapp:adminservicepackagelist')
+
+
+class AdminServicePackageDeleteView(AdminRequiredMixin, DeleteView):
+    template_name = "admintemplate/adminservicepackagedelete.html"
+    model = ServicePackage
+    success_url = reverse_lazy('tourandtravelapp:adminservicepackagelist')
+
+# service package end
+
+# team start
+class AdminTeamListView(AdminRequiredMixin, ListView):
+    template_name = "admintemplate/adminteamlist.html"
+    queryset = Team.objects.all().order_by('-id')
+    context_object_name = "adminteamlist"
+
+
+class AdminTeamCreateView(AdminRequiredMixin, CreateView):
+    template_name = "admintemplate/adminteamcreate.html"
+    form_class = TeamForm
+    success_url = reverse_lazy('tourandtravelapp:adminteamlist')
+
+
+class AdminTeamUpdateView(AdminRequiredMixin, UpdateView):
+    template_name = "admintemplate/adminteamcreate.html"
+    form_class = TeamForm
+    model = Team
+    success_url = reverse_lazy('tourandtravelapp:adminteamlist')
+
+
+class AdminTeamDeleteView(AdminRequiredMixin, DeleteView):
+    template_name = "admintemplate/adminteamdelete.html"
+    model = Team
+    success_url = reverse_lazy('tourandtravelapp:adminteamlist')
+
+
+# team end
+
+# offer start
+class AdminOfferListView(AdminRequiredMixin, ListView):
+    template_name = "admintemplate/adminofferlist.html"
+    queryset = Offer.objects.all().order_by('-id')
+    context_object_name = "adminofferlist"
+
+
+class AdminOfferCreateView(AdminRequiredMixin, CreateView):
+    template_name = "admintemplate/adminoffercreate.html"
+    form_class = OfferForm
+    success_url = reverse_lazy('tourandtravelapp:adminofferlist')
+
+
+class AdminOfferUpdateView(AdminRequiredMixin, UpdateView):
+    template_name = "admintemplate/adminoffercreate.html"
+    form_class = OfferForm
+    model = Offer
+    success_url = reverse_lazy('tourandtravelapp:adminofferlist')
+
+
+class AdminOfferDeleteView(AdminRequiredMixin, DeleteView):
+    template_name = "admintemplate/adminofferdelete.html"
+    model = Offer
+    success_url = reverse_lazy('tourandtravelapp:adminofferlist')
+
+# offerend
+
+# subscriber start
+class AdminSubscriberListView(AdminRequiredMixin, ListView):
+    template_name = "admintemplate/adminsubscriberlist.html"
+    queryset = Subscriber.objects.all().order_by('-id')
+    context_object_name = "adminsubscriberlist"
+
+
+class AdminSubscriberCreateView(AdminRequiredMixin, CreateView):
+    template_name = "admintemplate/adminsubscribercreate.html"
+    form_class = SubscriberForm
+    success_url = reverse_lazy('tourandtravelapp:adminsubscriberlist')
+
+
+class AdminSubscriberUpdateView(AdminRequiredMixin, UpdateView):
+    template_name = "admintemplate/adminsubscribercreate.html"
+    form_class = SubscriberForm
+    model = Subscriber
+    success_url = reverse_lazy('tourandtravelapp:adminsubscriberlist')
+
+
+class AdminSubscriberDeleteView(AdminRequiredMixin, DeleteView):
+    template_name = "admintemplate/adminsubscriberdelete.html"
+    model = Subscriber
+    success_url = reverse_lazy('tourandtravelapp:adminsubscriberlist')
+
+# subscriber end
+
+# Testimonial start
+class AdminTestimonialListView(AdminRequiredMixin, ListView):
+    template_name = "admintemplate/admintestimoniallist.html"
+    queryset = Testimonial.objects.all().order_by('-id')
+    context_object_name = "admintestimoniallist"
+
+
+class AdminTestimonialCreateView(AdminRequiredMixin, CreateView):
+    template_name = "admintemplate/admintestimonialcreate.html"
+    form_class = TestimonialForm
+    success_url = reverse_lazy('tourandtravelapp:admintestimoniallist')
+
+
+class AdminTestimonialUpdateView(AdminRequiredMixin, UpdateView):
+    template_name = "admintemplate/admintestimonialcreate.html"
+    form_class = TestimonialForm
+    model = Testimonial
+    success_url = reverse_lazy('tourandtravelapp:admintestimoniallist')
+
+
+class AdminTestimonialDeleteView(AdminRequiredMixin, DeleteView):
+    template_name = "admintemplate/admintestimonialdelete.html"
+    model = Testimonial
+    success_url = reverse_lazy('tourandtravelapp:admintestimoniallist')
+
+# Testimonial end
+
+# album start
+
+class AdminAlbumListView(AdminRequiredMixin, ListView):
+    template_name = "admintemplate/adminalbumlist.html"
+    queryset = Album.objects.all().order_by('-id')
+    context_object_name = "adminalbumlist"
+
+
+class AdminAlbumCreateView(AdminRequiredMixin, CreateView):
+    template_name = "admintemplate/adminalbumcreate.html"
+    form_class = AlbumForm
+    success_url = reverse_lazy('tourandtravelapp:adminalbumlist')
+
+    def form_valid(self, form):
+        album = form.save()
+        images = self.request.FILES.getlist("images")
+        for image in images:
+            Image.objects.create(album=album, image=image, caption="")
+
+        return super().form_valid(form)
+
+
+class AdminAlbumUpdateView(AdminRequiredMixin, UpdateView):
+    template_name = "admintemplate/adminalbumcreate.html"
+    form_class = AlbumForm
+    model = Album
+    success_url = reverse_lazy('tourandtravelapp:adminalbumlist')
+
+
+class AdminAlbumDeleteView(AdminRequiredMixin, DeleteView):
+    template_name = "admintemplate/adminalbumdelete.html"
+    model = Album
+    success_url = reverse_lazy('tourandtravelapp:adminalbumlist')
+
+    # album end
+
+    # image start
+class AdminImageListView(AdminRequiredMixin, ListView):
+    template_name = "admintemplate/adminimagelist.html"
+    queryset = Image.objects.all().order_by('-id')
+    context_object_name = "adminimagelist"
+
+
+class AdminImageCreateView(AdminRequiredMixin, CreateView):
+    template_name = "admintemplate/adminimagecreate.html"
+    form_class = ImageForm
+    success_url = reverse_lazy('tourandtravelapp:adminimagelist')
+
+
+class AdminImageUpdateView(AdminRequiredMixin, UpdateView):
+    template_name = "admintemplate/adminimagecreate.html"
+    form_class = ImageForm
+    model = Image
+    success_url = reverse_lazy('tourandtravelapp:adminimagelist')
+
+
+class AdminImageDeleteView(AdminRequiredMixin, DeleteView):
+    template_name = "admintemplate/adminimagedelete.html"
+    model = Image
+    success_url = reverse_lazy('tourandtravelapp:adminimagelist')
+
+    # image end
+
+
+    # Video start
+class AdminVideoListView(AdminRequiredMixin, ListView):
+    template_name = "admintemplate/adminvideolist.html"
+    queryset = Video.objects.all().order_by('-id')
+    context_object_name = "adminvideolist"
+
+
+class AdminVideoCreateView(AdminRequiredMixin, CreateView):
+    template_name = "admintemplate/adminvideocreate.html"
+    form_class = VideoForm
+    success_url = reverse_lazy('tourandtravelapp:adminvideolist')
+
+    def form_valid(self, form):
+        video_url = form.cleaned_data['link']
+        print(video_url)
+        url_data = urlparse(video_url)
+        print(url_data)
+        query = parse_qs(url_data.query)
+        print(query, "**************")
+        video_id = query.get("v")[0]
+        print(video_id)
+        form.instance.link = video_id
+
+        return super().form_valid(form)
+
+
+class AdminVideoUpdateView(AdminRequiredMixin, UpdateView):
+    template_name = "admintemplate/adminvideocreate.html"
+    form_class = VideoForm
+    model = Video
+    success_url = reverse_lazy('tourandtravelapp:adminvideolist')
+
+    def form_valid(self, form):
+        video_url = form.cleaned_data['link']
+        url_data = urlparse(video_url)
+        query = parse_qs(url_data.query)
+        print(query, "**************")
+        if "v" in query:
+            video_id = query["v"][0]
+            print(video_id)
+            form.instance.link = video_id
+
+        return super().form_valid(form)
+
+
+class AdminVideoDeleteView(AdminRequiredMixin, DeleteView):
+    template_name = "admintemplate/adminvideodelete.html"
+    model = Video
+    success_url = reverse_lazy('tourandtravelapp:adminvideolist')
+# video end
+# enquery start
+
+class AdminEnqueryListView(AdminRequiredMixin, ListView):
+    template_name = "admintemplate/adminenquerylist.html"
+    queryset = Enquery.objects.all().order_by('-id')
+    context_object_name = "adminenquerylist"
+
+
+class AdminEnqueryCreateView(AdminRequiredMixin, CreateView):
+    template_name = "admintemplate/adminenquerycreate.html"
+    form_class = EnqueryForm
+    success_url = reverse_lazy('tourandtravelapp:adminenquerylist')
+
+
+class AdminEnqueryUpdateView(AdminRequiredMixin, UpdateView):
+    template_name = "admintemplate/adminenquerycreate.html"
+    form_class = EnqueryForm
+    model = Enquery
+    success_url = reverse_lazy('tourandtravelapp:adminenquerylist')
+
+
+class AdminEnqueryDeleteView(AdminRequiredMixin, DeleteView):
+    template_name = "admintemplate/adminenquerydelete.html"
+    model = Enquery
+    success_url = reverse_lazy('tourandtravelapp:adminenquerylist')
+
+    # enqury end
+
+    # message start
+class AdminMessageListView(AdminRequiredMixin, ListView):
+    template_name = "admintemplate/adminmessagelist.html"
+    queryset = Message.objects.all().order_by('-id')
+    context_object_name = "adminmessagelist"
+
+
+class AdminMessageCreateView(AdminRequiredMixin, CreateView):
+    template_name = "admintemplate/adminmessagecreate.html"
+    form_class = MessageForm
+    success_url = reverse_lazy('tourandtravelapp:adminmessagelist')
+
+
+class AdminMessageUpdateView(AdminRequiredMixin, UpdateView):
+    template_name = "admintemplate/adminmessagecreate.html"
+    form_class = MessageForm
+    model = Message
+    success_url = reverse_lazy('tourandtravelapp:adminmessagelist')
+
+
+class AdminMessageDeleteView(AdminRequiredMixin, DeleteView):
+    template_name = "admintemplate/adminmessagedelete.html"
+    model = Message
+    success_url = reverse_lazy('tourandtravelapp:adminmessagelist')
+
+    # message end
