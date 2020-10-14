@@ -266,6 +266,17 @@ class AdminRequiredMixin(object):
 
 class AdminHomeView(AdminRequiredMixin, TemplateView):
     template_name = "admintemplate/adminhome.html"
+    def get(self,request):
+        countdestination = Service.objects.count()
+        countpackage = ServicePackage.objects.count()
+        countoffer = Offer.objects.count()
+
+        # context={'count':count}
+        return render (request,'admintemplate/adminhome.html',{'count_destination':countdestination,'count_package':countpackage,'count_offer':countoffer})
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['allservices'] = Service.objects.all().count()
+    #     return context
 
     # forservice start
 

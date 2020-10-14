@@ -1,15 +1,52 @@
-{% extends 'admintemplate/adminbase.html' %}
-{% load static %}
+	{% extends 'admintemplate/adminbase.html' %}
+	{% load static %}
 
-{% block content %}
- <!--// top-bar -->
-           
-                    <!--// Stats -->
-                   
-                </div>
-            </div>
-             <!--// Three-grids -->
-            <!-- Countdown -->
-        
+	{% block content %}
+	 <!--// top-bar -->
+	           
+	                    <!--// Stats -->
+	<div class="containeer">
+		<div class="row">
+	<div class="col-md-4">
+			<div class="card bg-light mb-3" style="max-width: 18rem;">
+	  <div class="card-header">Destinetion</div>
+	  <div class="card-body">
+	    <h5 class="card-title">No of destination: {{count_destination}}</h5>
+	    <a href="{% url 'tourandtravelapp:adminservicelist' %}" class="btn btn-outline-success">View </a>
+	   
+	  </div>
+		</div>
+	</div>
+			
+			<div class="col-md-4">
 
-{% endblock %}
+			<div class=" card bg-light mb-3" style="max-width: 18rem;">
+	  <div class="card-header">Service Package</div>
+	  <div class="card-body">
+	    <h5 class="card-title">No of Packages: {{count_package}}</h5>
+	    <a href="{% url 'tourandtravelapp:adminservicepackagelist' %}" class="btn btn-outline-success">View </a>
+	    
+	  </div>
+	</div>
+	</div>
+		
+		<div class="col-md-4">
+
+			<div class=" card bg-light mb-3" style="max-width: 18rem;">
+	  <div class="card-header">Offers</div>
+	  <div class="card-body">
+	    <h5 class="card-title">Total offer: {{count_offer}} </h5>
+	    <a href="{% url 'tourandtravelapp:adminofferlist' %}" class="btn btn-outline-success">View </a>
+	  </div>
+	</div>
+	</div>
+		
+		</div>
+	</div>
+	                   
+	                </div>
+	            </div>
+	             <!--// Three-grids -->
+	            <!-- Countdown -->
+	        
+	{% endblock %}
